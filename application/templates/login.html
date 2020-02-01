@@ -1,32 +1,31 @@
-    {% extends "layout.html" %}
-   
-    {% block content %}
-
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h3></h3>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CryptoTrading</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}"/>
+    </head>
+    <body style="background-image: url(/static/images/background.jpeg)" class="login_register">
+        <div class="login_inbox login_register_inbox">
+            <img src="/static/images/avatar.png" class="avatar">
+            <h1>Sign In</h1>
             <form name="login" action="" method="post" novalidate>
-                <fieldset class="form-group">
-                    {{ title }}
-                </fieldset>
                 {{ form.hidden_tag() }}
-                <p>
-                    {{ form.email.label }} <br>
-                    {{ form.email(size=35) }}
-                    {% for error in form.email.errors %}
-                        <span class="error-message">{{ error }}</span>
+                <p>{{ form.email.label }}</p>
+                {{ form.email(placeholder="Enter email") }}
+                {% for error in form.email.errors %}
+                <span class="error-message">{{ error }}</span>
                     {% endfor %}
-                <p>
-                    {{ form.password.label }} <br>
-                    {{ form.password(size=15) }}
-                    {% for error in form.password.errors %}
-                        <span class="error-message">{{ error }}</span>
+                <p>{{ form.password.label }}</p>
+                {{ form.password(placeholder="Enter password") }}
+                {% for error in form.password.errors %}
+                <span class="error-message">{{ error }}</span>
                     {% endfor %}
-                </span>
-                <p>
-                    {{ form.submit() }} <br>
-                </p>
+                <p>{{ form.submit() }} <br></p>
             </form>
+            <a href="#">Lost your password?</a><br>
+            <a href="{{ url_for('register') }}">Don't have an account</a>
         </div>
-    </div>
- {% endblock %}
+    </body>
+</html>

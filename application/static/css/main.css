@@ -18,6 +18,7 @@ body {
 
 .error-message {
     color: red;
+    font-size: small;
 }
 
 header {
@@ -43,19 +44,6 @@ hr {
     margin-right: auto;
     background-color: darkblue;
     border: 0 none;
-}
-
-input[type=text], input[type=password] {
-    width: 50%;
-    padding: 7px;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-}
-
-input[type=text]:focus, input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
 }
 
 .top-container {
@@ -108,3 +96,106 @@ footer {
     top: 3em;
 }
 
+.login_register{
+    background-size: cover;
+    background-position: center ;
+    font-family: sans-serif;
+    overflow:scroll;
+    margin-top: 30px;
+}
+
+.login_register h1{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.login_register_inbox{
+    width: 420px;
+    background: #000;
+    color:  #fff;
+    top: 60%;
+    left:  50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 20px;
+}
+
+.login_register p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    align-items: center;
+}
+
+.login_register p{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.register_inbox p{
+    display: flex;
+}
+
+.register_inbox label{
+    width: 200px;
+}
+
+.login_register input[type="text"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 7px;
+    width: 100%;
+    padding-left: 5px;
+}
+
+.login_register input[type="submit"]{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: #fb2525;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 18px;
+    width: 100%;
+    margin-top: 3px;
+    border-radius: 20px;
+}
+
+.login_register input[type="submit"]:hover{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+.login_register a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+.login_register a:hover{
+    color: #ffc107;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+    top: -30px;
+    left: calc(50% - 50px);
+    border: 1px solid darkgrey;
+}
+
+.inbox-wrapper{
+    /* margin-top: 50px; */
+}

@@ -74,7 +74,7 @@ def login():
         else:
             flash("Sorry, something went wrong!", category="danger")
             return redirect("/login")
-    return render_template("login.html",title="Login", form=form, login=True)
+    return render_template("login.html", form=form, login=True)
 
 @app.route("/register", methods=['GET','POST'])
 def register():
@@ -98,7 +98,7 @@ def register():
         session['user_id'] = user.user_id
         session['username'] = user.first_name
         return redirect(url_for("index"))
-    return render_template("register.html", title="Register", form=form, register=True)
+    return render_template("register.html", form=form, register=True)
 
 @app.route("/transaction", methods=["GET","POST"])
 def transaction():
