@@ -114,7 +114,7 @@ footer {
     width: 420px;
     background: #000;
     color:  #fff;
-    top: 60%;
+    top: 50%;
     left:  50%;
     position: absolute;
     transform: translate(-50%,-50%);
