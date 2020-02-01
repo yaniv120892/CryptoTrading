@@ -7,6 +7,15 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}"/>
     </head>
     <body style="background-image: url(/static/images/background.jpeg)" class="login_register">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{category}}">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div class="login_inbox login_register_inbox">
             <img src="/static/images/avatar.png" class="avatar">
             <h1>Sign In</h1>
