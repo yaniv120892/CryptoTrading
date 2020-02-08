@@ -1,0 +1,81 @@
+    {% extends "layout.html" %}
+    
+    {% block content %}
+    <h1>Currencies</h1>
+
+    <div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Currency</th>
+                <th scope="col">BTC</th>
+                <th scope="col">USD</th>
+                <th scope="col">Buy</th>
+                <th scope="col">Sell</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- Construct the rest of courses here -->
+            {% for data in currencies_for_trade %}
+            <tr>
+                <td scope='row'>{{ data["currency_symbol"] }}</td>
+                <td>{{ data["BTC"] }}</td>
+                <td>{{ data["USD"] }}$</td>
+                <div class="modal" id="sell_modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Enter the amount of {{ data["currency_symbol"] }} you sell</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('transaction') }}" method="POST">
+                                <input type="hidden" name="currency_symbol" value="{{data['currency_symbol'] }}">
+                                <input type="hidden" name="USD" value="{{ data['USD'] }}">
+                                <input type="hidden" name="transaction_type" value="sell">
+                                <input type="number" name="amount" step="any" min="0">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal" id="buy_modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Enter the amount of {{ data["currency_symbol"] }} you buy</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('transaction') }}" method="POST">
+                                <input type="hidden" name="currency_symbol" value="{{data['currency_symbol'] }}">
+                                <input type="hidden" name="USD" value="{{ data['USD'] }}">
+                                <input type="hidden" name="transaction_type" value="buy">
+                                <input type="number" name="amount" step="any" min="0">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sell_modal">Buy</button></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sell_modal">Sell</button></td>
+            </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

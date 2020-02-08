@@ -24,10 +24,10 @@
                     {% for transaction in transactions %}
                         <tr>
                             <td scope='row'>{{ transaction["transaction_type"] }}</td>
-                            <td>{{ transaction["coin_name"] }}</td>
+                            <td>{{ transaction["currency_symbol"] }}</td>
                             <td>{{ transaction["amount"] }}</td>
-                            <td>{{ transaction["value"] }}</td>
-                            <td>{{ transaction["date"] }}</td>
+                            <td>{{ transaction["value"] | round(4, 'floor') }}$ </td>
+                            <td>{{ transaction["date"].strftime('%Y-%m-%d') }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

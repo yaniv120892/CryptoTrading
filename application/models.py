@@ -15,15 +15,14 @@ class User(db.Document):
     def get_password(self, password):
         return check_password_hash(self.password, password)
 
-class Coin(db.Document):
-    coin_id = db.IntField(unique=True)
-    coin_name = db.StringField(max_length=30)
-    value = db.FloatField()
+class Currency(db.Document):
+    currency_name = db.StringField(max_length=30)
+    currency_symbol = db.StringField(max_length=30)
 
 class Transaction(db.Document):
-    transaction_id = db.IntField(unique=True)
+    user_id = db.IntField()
     transaction_type = db.StringField(max_length=10)
-    coin_name = db.StringField(max_length=30)
+    currency_symbol = db.StringField(max_length=30)
     amount = db.FloatField()
     value = db.FloatField()
     date = db.DateTimeField()

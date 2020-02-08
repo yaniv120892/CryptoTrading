@@ -1,10 +1,14 @@
 from application import app, db, api
 from flask import render_template, request, json, jsonify, Response, redirect, flash, url_for, session
-from application.models import User, Coin, Transaction
+from application.models import User, Currency, Transaction
 from application.forms import RegisterForm, LoginForm
 from flask_restplus import Resource
 from datetime import datetime
+import requests
 
+
+
+API_CRYPTO_COMPARE_KEY ='24eeefbf57377629752ded96ff23e89385cc48bd408a5f1e75032230d0537b09'
 
 
 #########################################################
@@ -105,14 +109,15 @@ def transaction():
     if not session.get('username'):
         return redirect(url_for("login"))
     transaction_type = request.form.get("transaction_type")
-    coin_name = request.form.get("coin_name")
+    currency_symbol = request.form.get("currency_symbol")
+    currency_value = request.form.get("USD")
     amount = request.form.get("amount")
-    value = calculate_value(coin_name, amount)
 
     user_id = session['user_id']
 
     if transaction_type:
-        Transaction(user_id=user_id,transaction_type=transaction_type,coin_name=coin_name,amount=amount,value=value,date=datetime.now).save()
+        value = float(currency_value) * float(amount)
+        Transaction(user_id=user_id,transaction_type=transaction_type,currency_symbol=currency_symbol,amount=amount,value=value,date=datetime.now).save()
         flash(f"Transaction added succesfully",category="success")
 
     transactions = list(Transaction.objects.aggregate(*[
@@ -129,10 +134,27 @@ def transaction():
 
     return render_template("transaction.html", transactions=transactions, transaction=True)
 
-@app.route("/coins/")
-def coins():
-    coins_for_trade = Coin.objects.order_by("+coin_name")
-    return render_template("coins.html", coins_for_trade=coins_for_trade, coins=True)
+@app.route("/currencies/")
+def currencies():
+    print("session['user_id']: "+str(session['user_id']))
+    currencies_info = Currency.objects.all()
+    response = retrieve_data([currency["currency_symbol"] for currency in currencies_info])
+    currencies_for_trade = []
+    print([*response])
+    for currency_info in [*response] :
+        currency_for_trade = {}
+        currency_for_trade["currency_symbol"] = currency_info
+        currency_for_trade["BTC"] = response[currency_info]["BTC"]
+        currency_for_trade["USD"] = response[currency_info]["USD"]
+        currencies_for_trade.append(currency_for_trade)
 
-def calculate_value(coin_name, amount):
-    return 100
+    return render_template("currencies.html", currencies_for_trade=currencies_for_trade, currencies=True)
+
+def calculate_value(currency_name, amount):
+    return 
+
+def retrieve_data(currencies):
+    api_url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms={}&tsyms=BTC,USD".format(",".join(currencies))
+    api_url = api_url + "&api_key="+ API_CRYPTO_COMPARE_KEY
+    response = json.loads(requests.get(api_url).content)
+    return response

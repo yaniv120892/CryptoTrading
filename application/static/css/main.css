@@ -92,8 +92,8 @@ footer {
     float: right;
     position: absolute;
     font-size: 25px;
-    right: 10em;
-    top: 3em;
+    left: 10em;
+    top: 20px;
 }
 
 .login_register{
@@ -198,4 +198,8 @@ footer {
 
 .inbox-wrapper{
     /* margin-top: 50px; */
+}
+
+.layout_logo{
+    width: 150px;
 }
