@@ -8,8 +8,12 @@
         {% if not transactions %}
             <h1>You don't have any transactions.</h1>
         {% else %}
-            <h1>Your transactions:</h1>
             <div>
+                <div class="filterContainer">
+                    <button id="buy_button" class="button filterButton" onclick="FilterRows('buy')">Buy</button>
+                    <button id="sell_button" class="button filterButton" onclick="FilterRows('sell')">Sell</button>
+                    <button id="all_button" class="button filterButton" onclick="FilterRows('all')">All</button>
+                </div>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -22,13 +26,13 @@
                     </thead>
                     <tbody>
                     {% for transaction in transactions %}
-                        <tr>
-                            <td scope='row'>{{ transaction["transaction_type"] }}</td>
-                            <td>{{ transaction["currency_symbol"] }}</td>
-                            <td>{{ transaction["amount"] }}</td>
-                            <td>{{ transaction["value"] | round(4, 'floor') }}$ </td>
-                            <td>{{ transaction["date"].strftime('%Y-%m-%d') }}</td>
-                        </tr>
+                            <tr class="tr_{% if transaction['transaction_type']=='sell' %}sell{% else %}buy{% endif %}">
+                                <td scope='row'>{{ transaction["transaction_type"] }}</td>
+                                <td>{{ transaction["currency_symbol"] }}</td>
+                                <td>{{ transaction["amount"] }}</td>
+                                <td>{{ transaction["value"] | round(4, 'floor') }}$ </td>
+                                <td>{{ transaction["date"].strftime('%Y-%m-%d') }}</td>
+                            </tr>
                     {% endfor %}
                     </tbody>
                 </table>
@@ -36,4 +40,27 @@
         {% endif %}
         </div>
     </div>
+    <script>
+        function FilterRows(class_to_display){  
+            $('.tr_sell').show();  
+            $('.tr_buy').show(); 
+            $('#sell_button').removeClass("filterButtonClicked");
+            $('#buy_button').removeClass("filterButtonClicked");
+            $('#all_button').removeClass("filterButtonClicked");
+            if (class_to_display == 'sell') 
+                 {
+                    $('.tr_buy').hide(); 
+                    $('#sell_button').addClass("filterButtonClicked");
+                 }  
+            if (class_to_display == 'buy') 
+                 {
+                    $('.tr_sell').hide(); 
+                    $('#buy_button').addClass("filterButtonClicked");
+                 }
+            if (class_to_display == 'all') 
+                 {
+                    $('#all_button').addClass("filterButtonClicked");
+                 } 
+        }   
+        </script>
 {% endblock %}

@@ -20,7 +20,8 @@ class Currency(db.Document):
     currency_symbol = db.StringField(max_length=30)
 
 class Transaction(db.Document):
-    user_id = db.IntField()
+    transaction_id = db.IntField(unique=True)
+    user_id = db.IntField(unique=False)
     transaction_type = db.StringField(max_length=10)
     currency_symbol = db.StringField(max_length=30)
     amount = db.FloatField()

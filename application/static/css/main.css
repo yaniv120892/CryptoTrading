@@ -203,3 +203,53 @@ footer {
 .layout_logo{
     width: 150px;
 }
+
+.nav-right{
+    float: right;
+}
+
+.filterContainer{
+    float: left;
+    padding: 10px;
+    margin: 5px;
+}
+
+.filterButton{
+    width: 80px;
+    border-radius: 8px;
+    background-color:dodgerblue;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.filterButtonSelected{
+    opacity: 0.6;
+}
+
+.filterButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+  .filterButton:focus {
+    outline: none;
+  }
+
+  .filterButtonClicked {
+    font-weight: bold;
+    outline: none;
+    opacity: 0.6;
+  }
+
+  
+
+
+  
+
+

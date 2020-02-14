@@ -12,17 +12,10 @@
 </head>
 <body>
 
-<div class="container-fluid text-center top-container">
-    <img class="layout_logo" src="{{ url_for('static',filename='images/logo.jpg') }}">
-</div>
-<div class="container">
     
     {% include "includes/nav.html" %}
 
-    {% if session['username'] %}
-    <span class="user">Welcome, {{ session['username'] }}</span>
-    {% endif %}
-
+<div class="container">
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

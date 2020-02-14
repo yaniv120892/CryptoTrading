@@ -117,7 +117,9 @@ def transaction():
 
     if transaction_type:
         value = float(currency_value) * float(amount)
-        Transaction(user_id=user_id,transaction_type=transaction_type,currency_symbol=currency_symbol,amount=amount,value=value,date=datetime.now).save()
+        transaction_id = Transaction.objects.count()
+        transaction_id += 1
+        Transaction(transaction_id=transaction_id,user_id=user_id,transaction_type=transaction_type,currency_symbol=currency_symbol,amount=amount,value=value,date=datetime.now).save()
         flash(f"Transaction added succesfully",category="success")
 
     transactions = list(Transaction.objects.aggregate(*[
@@ -132,7 +134,7 @@ def transaction():
                     }
                 ]))
 
-    return render_template("transaction.html", transactions=transactions, transaction=True)
+    return render_template("transaction.html", transactions=transactions, filterValue="all", transaction=True)
 
 @app.route("/currencies/")
 def currencies():
